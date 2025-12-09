@@ -7,18 +7,26 @@ export default function MainLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false);
+  };
+
+  const handleOpenSidebar = () => {
+    setSidebarOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
       
-      <div className="lg:pl-64">
+      <div className="lg:pl-64 transition-all duration-300">
         <Header 
-          onMenuClick={() => setSidebarOpen(true)}
+          onMenuClick={handleOpenSidebar}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
         
-        <main className="p-4 lg:p-6">
+        <main className="p-4 lg:p-6 animate-fade-in">
           <Outlet context={{ searchQuery }} />
         </main>
       </div>
